@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Employee — ELM</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+<div class="form-wrapper">
+    <div class="form-page-header">
+        <h2>Create Employee</h2>
+    </div>
+    <div class="card">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save Employee</button>
+        </form>
+    </div>
+    <a href="{% url 'home' %}" class="back-link">Back to Home</a>
+</div>
+</body>
+</html>

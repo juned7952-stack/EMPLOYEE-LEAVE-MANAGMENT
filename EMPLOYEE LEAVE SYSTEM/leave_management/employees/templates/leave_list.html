@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Requests — ELM</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+<div class="leave-list-wrapper">
+    <div class="form-page-header">
+        <h2>Leave Requests</h2>
+    </div>
+
+    {% for leave in leaves %}
+    <div class="leave-item">
+        <span>
+            <strong>{{ leave.employee.name }}</strong> has requested leave from
+            <strong>{{ leave.start_date }}</strong> to <strong>{{ leave.end_date }}</strong>.
+        </span>
+        {% if user.is_staff %}
+        <div class="leave-actions">
+            <a href="{% url 'approve_leave' leave.id %}" class="action-btn btn-approve">Approve</a>
+            <a href="{% url 'reject_leave' leave.id %}" class="action-btn btn-reject">Reject</a>
+        </div>
+        {% endif %}
+    </div>
+    {% empty %}
+    <div class="leave-item" style="border-left-color: var(--color-border);">
+        <span style="color: var(--color-text-muted); font-style: italic;">No leave requests found.</span>
+    </div>
+    {% endfor %}
+
+    <a href="{% url 'home' %}" class="back-link">Back to Home</a>
+</div>
+</body>
+</html>
